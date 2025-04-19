@@ -1,7 +1,7 @@
-from Classes.Rook import Rook
+from Classes.King import King
 
 def main():
-    p1 = Rook("white", 0, 0)
+    p1 = King("white", 4, 0)
     print(p1.getMoves())
 
 if __name__ == '__main__':
