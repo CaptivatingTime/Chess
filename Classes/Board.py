@@ -3,9 +3,11 @@ class Board():
     def __init__(self, player1, player2):
         self.Layout = [[None for j in range(8)] for i in range(8)]
 
-        players = [player1.getPieces(),player2.getPieces()]
+        self.players = [player1,player2]
+
+        self.all_player_pieces = [player1.getPieces(),player2.getPieces()]
         
-        for player_pieces in players:
+        for player_pieces in self.all_player_pieces:
             for row in player_pieces:
                 for piece in row:
                     if piece != None:
@@ -30,6 +32,14 @@ class Board():
         newX = piece.getX()
         newY = piece.getY()
         self.Layout[newY][newX] = piece
+        
+        for player in self.players:
+            if player.getColor() == piece.getColor():
+                player.InitialPieces[oldY][oldX] = None
+                player.InitialPieces[newY][newX] = piece
+                
+
+
 
 
                         

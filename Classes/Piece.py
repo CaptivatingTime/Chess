@@ -5,6 +5,12 @@ class Piece:
         self.__posY = y
         self.ValidMoves = []
 
+    def checkPath(self, occupiedSquares, x, y): # Checks if path is clear for movement
+        if occupiedSquares[y][x] != None:
+            return False
+        else:
+            return True
+
     def outOfBoard(self, x, y):
         if x > 7 or y > 7 or x < 0 or y < 0:
             return True

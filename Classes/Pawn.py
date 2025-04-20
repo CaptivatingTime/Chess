@@ -9,7 +9,11 @@ class Pawn(Piece):
     def getName(self):
         return self.name
     
+    def setHasMoved(self):
+        self.hasMoved = True
+    
     def getMoves(self, occupiedSquares):
+        self.ValidMoves.clear()
         n = 0
         ValidX = []
         ValidY = []
@@ -17,7 +21,7 @@ class Pawn(Piece):
         ValidX.append(self.getX())
         if self.canCapture:
             ValidX.append(self.getX() + 1)
-            ValidX.append(self.getX() - 1)
+            ValidX.append(self.getX() - 1) 
 
         if self.hasMoved:
             ValidY.append(self.getY() + 1)
@@ -25,10 +29,13 @@ class Pawn(Piece):
             for i in range(2):
                 n = n + 1
                 ValidY.append(self.getY() + n)
-            self.hasMoved = True
+            
         for x in ValidX:
             for y in ValidY:
+                if self.checkPath(occupiedSquares, x, y) == False:
+                    break
                 self.ValidMoves.append((x,y))
+                #self.hasMoved = True
         
 
         return self.ValidMoves

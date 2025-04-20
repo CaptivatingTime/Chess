@@ -8,7 +8,8 @@ from Classes.King import King
 
 class Player:
     def __init__(self, color):
-        
+        self.color = color
+
         if color == "white":
             y  = 0
             dy = 1
@@ -36,3 +37,6 @@ class Player:
 
     def getPieces(self):
         return self.InitialPieces
+    
+    def getColor(self):
+        return self.color

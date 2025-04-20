@@ -4,13 +4,15 @@ from Classes.Board import Board
 
 
 def movePiece(board, player, currentX, currentY, destX, destY):
-    selected_piece = player.InitialPieces[currentX][currentY]
+    selected_piece = player.InitialPieces[currentY][currentX]
     currentX = selected_piece.getX()
     currentY = selected_piece.getY()
-    print(selected_piece.getMoves(player.InitialPieces))
+    #print(selected_piece.getMoves(player.InitialPieces))
     move = selected_piece.move(destX, destY,player.InitialPieces)
     if move == 1:
-        board.UpdatePieces(selected_piece, currentX, currentY)    
+        board.UpdatePieces(selected_piece, currentX, currentY)
+    if selected_piece.getName() == "Pawn":
+        selected_piece.setHasMoved()    
 
 def main():
     p1 = Player("white")
@@ -36,14 +38,17 @@ def main():
 
     board = Board(p1, p2)
     board.printBoard()
-    movePiece(board, p1, 0, 1, 2, 2)
-    board.printBoard()
-
-    #print(selected_piece.getMoves(p1.InitialPieces))
-
-
-
+    #movePiece(board, p1, 0, 1, 2, 2)
     #board.printBoard()
+    selected_piece = p1.InitialPieces[1][5]
+    print(selected_piece.getMoves(p1.InitialPieces))
+    #movePiece(board, p1, 4, 1, 4, 3)
+
+    print(selected_piece.getMoves(p1.InitialPieces))
+    movePiece(board, p1, 5, 1, 5, 2)
+    print(selected_piece.getMoves(p1.InitialPieces))
+    #movePiece(board, p1, 2, 0, 6, 4)
+    board.printBoard()
 
 
 

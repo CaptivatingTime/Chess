@@ -7,15 +7,18 @@ class Bishop(Piece):
         return self.name 
 
     def getMoves(self, occupiedSquares):
+        self.ValidMoves.clear()
         n = 0
 
         ValidX_range1 = 7 - self.getX()
+
+        path_free = True
 
         for i in range (ValidX_range1):
             n = n + 1
             newX = self.getX() + n
             newY = self.getY() + n
-            if self.outOfBoard(newX, newY):
+            if self.outOfBoard(newX, newY) or self.checkPath(occupiedSquares, newX, newY) == False:
                 break
             self.ValidMoves.append((newX, newY))
         n = 0
@@ -23,7 +26,7 @@ class Bishop(Piece):
             n = n + 1
             newX = self.getX() - n
             newY = self.getY() + n
-            if self.outOfBoard(newX, newY):
+            if self.outOfBoard(newX, newY) or self.checkPath(occupiedSquares, newX, newY) == False:
                 break            
             self.ValidMoves.append((newX, newY))
 
@@ -33,7 +36,7 @@ class Bishop(Piece):
             n = n + 1
             newX = self.getX() - n
             newY = self.getY() - n
-            if self.outOfBoard(newX, newY):
+            if self.outOfBoard(newX, newY) or self.checkPath(occupiedSquares, newX, newY) == False:
                 break
             self.ValidMoves.append((newX, newY))
         n = 0
@@ -41,7 +44,7 @@ class Bishop(Piece):
             n = n + 1
             newX = self.getX() + n
             newY = self.getY() - n
-            if self.outOfBoard(newX, newY):
+            if self.outOfBoard(newX, newY) or self.checkPath(occupiedSquares, newX, newY) == False:
                 break
             self.ValidMoves.append((newX, newY))           
             
