@@ -1,8 +1,13 @@
 from Classes.Piece import Piece
 
 class Rook(Piece):
+    name = "Rook"
 
-    def getMoves(self):
+    def getName(self):
+        return self.name
+
+
+    def getMoves(self, occupiedSquares):
         currentX = self.getX()
         currentY = self.getY()
 

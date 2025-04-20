@@ -1,9 +1,12 @@
 from Classes.Piece import Piece
 
 class Bishop(Piece):
- 
+    name = "Bishop"
 
-    def getMoves(self):
+    def getName(self):
+        return self.name 
+
+    def getMoves(self, occupiedSquares):
         n = 0
 
         ValidX_range1 = 7 - self.getX()

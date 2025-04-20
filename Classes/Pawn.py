@@ -4,7 +4,12 @@ class Pawn(Piece):
     hasMoved = False
     canCapture = False
 
-    def getMoves(self):
+    name = "Pawn"
+
+    def getName(self):
+        return self.name
+    
+    def getMoves(self, occupiedSquares):
         n = 0
         ValidX = []
         ValidY = []

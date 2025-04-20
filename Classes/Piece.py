@@ -11,7 +11,9 @@ class Piece:
         else:
             return False
 
-                
+    def getColor(self):
+        return self.__color
+    
     def getPosition(self):
         return (self.posX, self.posY)
     
@@ -24,12 +26,12 @@ class Piece:
     def getMoves(self): # Piece possible moves go here
         return
 
-    def move(self, destX, destY):
+    def move(self, destX, destY, occupiedSquares):
         self.ValidMoves.clear()
-        self.getMoves()
+        self.getMoves(occupiedSquares)
         if (destX, destY) in self.ValidMoves:
-            self.posX = destX
-            self.posY = destY
+            self.__posX = destX
+            self.__posY = destY
             print(f"new piece location ({destX},{destY})")
             return 1
         else:
@@ -38,3 +40,4 @@ class Piece:
 
     def canCapture(self):
         return # Piece possible captures go here
+    

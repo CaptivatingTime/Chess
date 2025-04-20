@@ -1,8 +1,13 @@
 from Classes.Piece import Piece
 
 class Knight(Piece):
+    name = "Knight"
+
+    def getName(self):
+        return self.name
     
-    def getMoves(self):
+    def getMoves(self, occupiedSquares):
+        self.ValidMoves.clear()
         currentX = self.getX()
         currentY = self.getY()
 
@@ -13,7 +18,8 @@ class Knight(Piece):
              newX = currentX + offset[0]
              newY = currentY + offset[1]
              if self.outOfBoard(newX, newY) == False:
-                 self.ValidMoves.append((newX, newY))                
+                 if occupiedSquares[newY][newX] == None:
+                    self.ValidMoves.append((newX, newY))                
 
         return self.ValidMoves                            
 

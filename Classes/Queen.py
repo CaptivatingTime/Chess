@@ -1,7 +1,11 @@
 from Classes.Piece import Piece
 
 class Queen(Piece):
+    name = "Queen"
 
+    def getName(self):
+        return self.name
+    
     def __getDiagonal(self, x, y, dx, dy):
         for i in range(8):
             if i != 0:
@@ -11,7 +15,7 @@ class Queen(Piece):
                     break
                 self.ValidMoves.append((newX, newY))
 
-    def getMoves(self):
+    def getMoves(self, occupiedSquares):
 
         currentX = self.getX()
         currentY = self.getY()

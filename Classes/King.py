@@ -1,6 +1,12 @@
 from Classes.Piece import Piece
 
 class King(Piece):
+
+    name = "King"
+
+    def getName(self):
+        return self.name
+
     def getMoves(self):
         currentX = self.getX()
         currentY = self.getY()
