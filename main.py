@@ -7,12 +7,47 @@ def movePiece(board, player, currentX, currentY, destX, destY):
     selected_piece = player.InitialPieces[currentY][currentX]
     currentX = selected_piece.getX()
     currentY = selected_piece.getY()
+
     #print(selected_piece.getMoves(player.InitialPieces))
     move = selected_piece.move(destX, destY,player.InitialPieces)
     if move == 1:
         board.UpdatePieces(selected_piece, currentX, currentY)
     if selected_piece.getName() == "Pawn":
-        selected_piece.setHasMoved()    
+        selected_piece.setHasMoved()
+    return move    
+
+def registerCapturables(movedPiece, player1, player2):
+    ValidMoves = []
+    CapturePossible = []
+    prevX = None
+    prevY = None
+    firstReached = False # flag if first piece in diagonal, row or column is seen
+
+    if movedPiece.getColor() == player1.getColor():
+        ValidMoves = movedPiece.getMoves(player1.InitialPieces)
+        OpponentPieces = player2.getPieces()
+        for move in ValidMoves:
+            firstReached = False
+            for y in range(8):
+                for x in range(8):
+                    if OpponentPieces[y][x] != None:
+                        if prevX != None and prevY != None:
+                            offsets = [(1,1), (1, -1), (-1,1), (-1, -1), (1, 0), (-1, 0), (0, 1), (0, -1)]
+                            for offset in offsets:
+                                if prevX + offset[0] != x and prevY + offset[1] != y:
+                                    firstReached = True
+                        if firstReached == False:
+                            if move[0] == x and move[1] == y:
+                                CapturePossible.append((x, y))
+                                prevX = x
+                                prevY = y
+
+
+    movedPiece.setCapturables(CapturePossible)
+
+
+
+
 
 def main():
     p1 = Player("white")
@@ -40,13 +75,17 @@ def main():
     board.printBoard()
     #movePiece(board, p1, 0, 1, 2, 2)
     #board.printBoard()
-    selected_piece = p1.InitialPieces[1][5]
+    selected_piece = p1.InitialPieces[0][0]
+    print(selected_piece.getCapturables())
+    move = movePiece(board, p1, 0, 1, 0, 3)
+    move = movePiece(board, p1, 0, 0, 0, 2)
+    #move = movePiece(board, p1, 0, 2, 1, 2)
+    if move == 1:
+        registerCapturables(selected_piece, p1, p2)
+    print(selected_piece.getCapturables())
     print(selected_piece.getMoves(p1.InitialPieces))
-    #movePiece(board, p1, 4, 1, 4, 3)
-
-    print(selected_piece.getMoves(p1.InitialPieces))
-    movePiece(board, p1, 5, 1, 5, 2)
-    print(selected_piece.getMoves(p1.InitialPieces))
+    #movePiece(board, p1, 5, 1, 5, 2)
+    #print(selected_piece.getMoves(p1.InitialPieces))
     #movePiece(board, p1, 2, 0, 6, 4)
     board.printBoard()
 

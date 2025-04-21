@@ -1,9 +1,10 @@
 class Piece:
     def __init__(self, color, x, y):
-        self.__color = color
-        self.__posX = x
-        self.__posY = y
-        self.ValidMoves = []
+        self.__color         = color
+        self.__posX          = x
+        self.__posY          = y
+        self.ValidMoves      = []
+        self.CapturePossible = []
 
     def checkPath(self, occupiedSquares, x, y): # Checks if path is clear for movement
         if occupiedSquares[y][x] != None:
@@ -16,6 +17,18 @@ class Piece:
             return True
         else:
             return False
+
+    def move(self, destX, destY, occupiedSquares):
+        self.ValidMoves.clear()
+        self.getMoves(occupiedSquares)
+        if (destX, destY) in self.ValidMoves:
+            self.__posX = destX
+            self.__posY = destY
+            print(f"new piece location ({destX},{destY})")
+            return 1
+        else:
+            print("Not valid move")
+            return 0
 
     def getColor(self):
         return self.__color
@@ -32,18 +45,12 @@ class Piece:
     def getMoves(self): # Piece possible moves go here
         return
 
-    def move(self, destX, destY, occupiedSquares):
-        self.ValidMoves.clear()
-        self.getMoves(occupiedSquares)
-        if (destX, destY) in self.ValidMoves:
-            self.__posX = destX
-            self.__posY = destY
-            print(f"new piece location ({destX},{destY})")
-            return 1
-        else:
-            print("Not valid move")
-            return 0
+    def getCapturables(self):
+        return self.CapturePossible
 
-    def canCapture(self):
-        return # Piece possible captures go here
+    def setCapturables(self, Capturables):
+        self.CapturePossible.clear()
+        self.CapturePossible = Capturables # Piece possible captures go here
+
+
     
